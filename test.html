@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Socket.IO Backend Test</title>
-    <!-- Load the Socket.IO client directly from a CDN -->
     <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
     <style>
         body { background-color: #1e1e1e; color: #d4d4d4; font-family: monospace; padding: 20px; }
@@ -28,29 +27,24 @@
             logDiv.innerHTML += `<p>> ${msg}</p>`;
         }
 
-        // 1. Connect to the Node.js backend
         const socket = io("http://localhost:5000");
         const testDocumentId = "football-tactics-101";
 
         socket.on("connect", () => {
             logMessage("✅ Connected to server with ID: " + socket.id);
             
-            // 2. Request to join the room and get initial data
             logMessage(`Requesting document: ${testDocumentId}`);
             socket.emit("get-document", testDocumentId);
         });
 
-        // 3. Listen for the initial load from MongoDB
         socket.on("load-document", (data) => {
             logMessage("📄 Document loaded from DB. Content: " + JSON.stringify(data));
         });
 
-        // 4. Listen for real-time broadcasts from other tabs
         socket.on("receive-changes", (delta) => {
             logMessage("🔴 Received broadcast from teammate: " + JSON.stringify(delta));
         });
 
-        // Function to trigger an event when you click the button
         function sendChange() {
             const inputVal = document.getElementById("changeInput").value;
             const delta = { text: inputVal, timestamp: Date.now() };
@@ -58,7 +52,6 @@
             logMessage("🔵 Sending change to server: " + JSON.stringify(delta));
             socket.emit("send-changes", delta);
             
-            // Optional: Test the save feature
             socket.emit("save-document", { latestText: inputVal });
         }
     </script>
