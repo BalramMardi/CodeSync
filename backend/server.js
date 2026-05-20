@@ -26,28 +26,6 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
-//----------------------------------------------------------------------------------
-
-
-if (process.env.NODE_ENV === "production") {
-  const clientDistPath = path.join(__dirname, "../frontend/dist");
-  
-  app.use(express.static(clientDistPath));
-
-  app.get(/(.*)/, (req, res) => {
-    res.sendFile(path.join(clientDistPath, "index.html"));
-  });
-} else {
-  app.get("/", (req, res) => {
-    res.send("API is running..");
-  });
-}
-
-
-//----------------------------------------------------------------------------------
-
-
-
 const io = new Server(server, {
   cors: {
     origin: ALLOWED_ORIGIN,
@@ -141,6 +119,27 @@ async function findOrCreateDocument(id) {
   if (document) return document;
   return await Document.create({ _id: id, content: "" });
 }
+
+
+//----------------------------------------------------------------------------------
+
+
+if (process.env.NODE_ENV === "production") {
+  const clientDistPath = path.join(__dirname, "../frontend/dist");
+  
+  app.use(express.static(clientDistPath));
+
+  app.get(/(.*)/, (req, res) => {
+    res.sendFile(path.join(clientDistPath, "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running..");
+  });
+}
+
+
+//----------------------------------------------------------------------------------
 
 connectDB().then(() => {
   server.listen(PORT, () => {
