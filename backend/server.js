@@ -30,17 +30,18 @@ const PORT = process.env.PORT || 5000;
 
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  const clientDistPath = path.join(__dirname, "../frontend/dist");
+  
+  app.use(express.static(clientDistPath));
 
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
-  );
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(clientDistPath, "index.html"));
+  });
 } else {
   app.get("/", (req, res) => {
     res.send("API is running..");
   });
 }
-
 //----------------------------------------------------------------------------------
 
 
