@@ -7,7 +7,7 @@ export default function Home() {
 
   const createNewRoom = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/create-room");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/create-room`);
       const data = await response.json();
       navigate(`/document/${data.roomId}`);
     } catch (error) {

@@ -4,6 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start":"node server.js",
+    "server":"nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,7 +17,8 @@
     "express": "^5.2.1",
     "mongoose": "^9.6.2",
     "socket.io": "^4.8.3",
-    "uuid": "^14.0.0"
+    "uuid": "^14.0.0",
+    "yjs": "^13.6.30"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
