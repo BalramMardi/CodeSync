@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./home.css";
+
 
 export default function Home() {
   const [roomId, setRoomId] = useState("");
@@ -23,29 +25,57 @@ export default function Home() {
   };
 
   return (
-    <div style={{ height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", backgroundColor: "#1e1e1e", color: "#d4d4d4", fontFamily: "sans-serif" }}>
-      <div style={{ padding: "40px", backgroundColor: "#252526", borderRadius: "8px", boxShadow: "0 4px 6px rgba(0,0,0,0.3)", textAlign: "center" }}>
-        <h1 style={{ marginBottom: "20px", color: "#61dafb" }}>Collaborative Editor</h1>
-        
-        <p style={{ marginBottom: "20px" }}>Paste an invitation ID to join a session</p>
-        
-        <form onSubmit={joinRoom} style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "20px" }}>
-          <input
-            type="text"
-            placeholder="ROOM ID"
-            value={roomId}
-            onChange={(e) => setRoomId(e.target.value)}
-            style={{ padding: "10px", borderRadius: "4px", border: "1px solid #3c3c3c", backgroundColor: "#3c3c3c", color: "#fff", outline: "none" }}
-          />
-          <button type="submit" style={{ padding: "10px", borderRadius: "4px", border: "none", backgroundColor: "#007acc", color: "#fff", cursor: "pointer", fontWeight: "bold" }}>
-            Join Room
-          </button>
-        </form>
+    <>
+      
+      <div className="home-container">
+        <nav className="nav-bar">
+          <div className="nav-logo">CodeSync</div>
+          {/* <ul className="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul> */}
+        </nav>
 
-        <p style={{ marginBottom: "20px", fontSize: "14px" }}>
-          If you don't have an invite then create a <span onClick={createNewRoom} style={{ color: "#61dafb", cursor: "pointer", textDecoration: "underline" }}>new room</span>.
-        </p>
+        <div className="bioWave">
+          <div className="wave-blur-1" />
+          <div className="wave-blur-2" />
+        </div>
+
+        <div className="orb orb-1" />
+        <div className="orb orb-2" />
+        <div className="orb orb-3" />
+
+        <div className="vignette" />
+
+        <div className="content">
+          <div className="card">
+            <h1 className="title">Collaborative Editor</h1>
+            <p className="subtitle">Paste an invitation ID to join a session</p>
+
+            <form onSubmit={joinRoom} className="form">
+              <input
+                type="text"
+                placeholder="ROOM ID"
+                value={roomId}
+                onChange={(e) => setRoomId(e.target.value)}
+                className="input"
+              />
+              <button type="submit" className="button">
+                Join Room
+              </button>
+            </form>
+
+            <p className="subtitle">
+              If you don't have an invite then create a{" "}
+              <span className="link-text" onClick={createNewRoom}>
+                new room
+              </span>
+              .
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
